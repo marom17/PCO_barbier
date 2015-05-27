@@ -15,4 +15,11 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    barbier.cpp \
+    clientcheveux.cpp
+
+HEADERS += \
+    barbier.h \
+    clientcheveux.h \
+    global.h
