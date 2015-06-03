@@ -16,6 +16,7 @@ private:
     QMutex *mutexBarbier;
     QWaitCondition *salleAttente;
     QWaitCondition *barbier;
+    QMutex *debug;
     int *siegeUtilise;
 };
 

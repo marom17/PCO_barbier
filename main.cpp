@@ -12,11 +12,12 @@ int main(int argc, char *argv[])
     QMutex *mutexBarbier = new QMutex();
     QWaitCondition *salleAttente = new QWaitCondition();
     QWaitCondition *barbier = new QWaitCondition();
+    QMutex *debug = new QMutex();
 
     int siegeUtilise = 0;
 
-    Barbier *b = new Barbier(mutexBarbier,barbier,salleAttente,&siegeUtilise);
-    ClientCheveux *c = new ClientCheveux(mutexClient,salleAttente,barbier,&siegeUtilise);
+    Barbier *b = new Barbier(mutexBarbier, barbier, salleAttente, debug, &siegeUtilise);
+    ClientCheveux *c = new ClientCheveux(mutexClient, salleAttente, barbier, debug, &siegeUtilise);
 
     b->start();
     c->start();
