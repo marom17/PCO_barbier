@@ -3,6 +3,7 @@
 #include <QMutex>
 #include <QWaitCondition>
 #include "iostream"
+#include <QtDebug>
 
 extern QMutex *mutexClient;
 extern QMutex *mutexBarbier;

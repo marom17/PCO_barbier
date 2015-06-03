@@ -23,20 +23,20 @@ ClientCheveux::~ClientCheveux(){
 void ClientCheveux::run(){
     while(true){
         //Attend que ces cheveux pousse
-        std::cout << "J'attends que mes cheveux poussent" <<  std::endl;
+        qDebug() << "J'attends que mes cheveux poussent \n";
         sleep(attentePousseCheveux);
 
         //Si la salle d'attente est pleine
         mutexClient->lock();
-        std::cout << "Je veux aller chez le barbier." << std::endl;
+        qDebug() << "Je veux aller chez le barbier. \n";
         while(*siegeUtilise >= NB_SIEGE){
-            std::cout << "Plus de place... Je passerai plus tard" << std::endl;
+            qDebug() << "Plus de place... Je passerai plus tard \n";
             mutexClient->unlock();
             sleep(attentePousseCheveux / 2);
             mutexClient->lock();
         }
 
-        std::cout << "Je réveille le barbier et m'installe dans la salle d'attente" << std::endl;
+        qDebug() << "Je réveille le barbier et m'installe dans la salle d'attente \n";
 
         //Réveille le barbier si besoin
         barbier->wakeOne();
@@ -45,8 +45,8 @@ void ClientCheveux::run(){
         ++(*siegeUtilise);
         salleAttente->wait(mutexClient);
 
-        std::cout << "Le barbier m'a réveillé, je peux me faire couper les tifs FDP LOL" << std::endl;
-        std::cout << "Travail terminé!" << std::endl;
+        qDebug() << "Le barbier m'a réveillé, je peux me faire couper les tifs FDP LOL \n";
+        qDebug() << "Travail terminé!\n";
         --(*siegeUtilise);
         mutexClient->unlock();
     }
