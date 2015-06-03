@@ -19,6 +19,7 @@ private:
     QMutex *mutexClient;
     QWaitCondition *salleAttente;
     QWaitCondition *barbier;
+    QMutex *debug;
 };
 
 #endif // CLIENTCHEVEUX_H
