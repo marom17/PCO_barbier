@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
 
     int siegeUtilise = 0;
 
-    Barbier *b = new Barbier();
-    ClientCheveux *c = new ClientCheveux();
+    Barbier *b = new Barbier(mutexBarbier,barbier,salleAttente,&siegeUtilise);
+    ClientCheveux *c = new ClientCheveux(mutexClient,salleAttente,barbier,&siegeUtilise);
 
     b->start();
     c->start();

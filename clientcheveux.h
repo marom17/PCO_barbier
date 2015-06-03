@@ -6,12 +6,19 @@
 class ClientCheveux : public QThread
 {
 public:
-    ClientCheveux();
+    ClientCheveux(QMutex *mutexClient,
+                                 QWaitCondition *salleAttente,
+                                 QWaitCondition *barbier,
+                  int *siegeUtilise);
     void run();
     ~ClientCheveux();
 
 private:
     int attentePousseCheveux;
+    int *siegeUtilise;
+    QMutex *mutexClient;
+    QWaitCondition *salleAttente;
+    QWaitCondition *barbier;
 };
 
 #endif // CLIENTCHEVEUX_H
