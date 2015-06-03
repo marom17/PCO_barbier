@@ -35,12 +35,8 @@ void Barbier::run(){
         qDebug() << "Je me fait réveiller par un client... \n";
         debug->unlock();
 
-<<<<<<< HEAD
         while(*siegeUtilise != 0){
-=======
-        while(siegeUtilise != 0){
             debug->lock();
->>>>>>> 903d30ec80694254e7ff03eb89e0f4a722a8c683
             qDebug() << "Prochain Client! \n";
             debug->unlock();
             salleAttente->wakeOne();

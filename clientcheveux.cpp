@@ -62,13 +62,8 @@ void ClientCheveux::run(){
         debug->lock();
         qDebug() << "Le barbier m'a réveillé, je peux me faire couper les tifs FDP LOL \n";
         qDebug() << "Travail terminé!\n";
-<<<<<<< HEAD
         (*siegeUtilise)--;
-=======
         debug->unlock();
-
-        --(*siegeUtilise);
->>>>>>> 903d30ec80694254e7ff03eb89e0f4a722a8c683
         mutexClient->unlock();
     }
 }
