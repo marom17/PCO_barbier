@@ -7,8 +7,9 @@ class ClientCheveux : public QThread
 {
 public:
     ClientCheveux(QMutex *mutexClient,
-                                 QWaitCondition *salleAttente,
-                                 QWaitCondition *barbier,
+                  QWaitCondition *salleAttente,
+                  QWaitCondition *barbier,
+                  QMutex *debug,
                   int *siegeUtilise);
     void run();
     ~ClientCheveux();

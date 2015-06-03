@@ -7,8 +7,9 @@ class Barbier : public QThread
 {
 public:
     Barbier(QMutex *mutexBarbier,
-                      QWaitCondition *barbier,
-                      QWaitCondition *salleAttente,
+            QWaitCondition *barbier,
+            QWaitCondition *salleAttente,
+            QMutex *debug,
             int *siegeUtilise);
     void run();
     ~Barbier();
