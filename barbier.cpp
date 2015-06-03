@@ -13,14 +13,14 @@ Barbier::~Barbier()
 void Barbier::run(){
     while(true) {
         mutexBarbier->lock();
-        std::cout << "J'attends qu'un client me réveille..." << std::endl;
+        qDebug() << "J'attends qu'un client me réveille... \n";
 
         barbier->wait(mutexBarbier);
 
-        std::cout << "Je me fait réveiller par un client..." << std::endl;
+        qDebug() << "Je me fait réveiller par un client... \n";
 
         while(siegeUtilise != 0){
-            std::cout << "Prochain Client!" << std::endl;
+            qDebug() << "Prochain Client! \n";
             salleAttente->wakeOne();
         }
 
