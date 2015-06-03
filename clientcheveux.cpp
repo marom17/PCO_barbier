@@ -42,12 +42,12 @@ void ClientCheveux::run(){
         barbier->wakeOne();
 
         //Entrée en salle d'attente
-        ++(*siegeUtilise);
+        (*siegeUtilise)++;
         salleAttente->wait(mutexClient);
 
         qDebug() << "Le barbier m'a réveillé, je peux me faire couper les tifs FDP LOL \n";
         qDebug() << "Travail terminé!\n";
-        --(*siegeUtilise);
+        (*siegeUtilise)--;
         mutexClient->unlock();
     }
 }

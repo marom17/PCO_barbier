@@ -28,7 +28,7 @@ void Barbier::run(){
 
         qDebug() << "Je me fait réveiller par un client... \n";
 
-        while(siegeUtilise != 0){
+        while(*siegeUtilise != 0){
             qDebug() << "Prochain Client! \n";
             salleAttente->wakeOne();
         }
