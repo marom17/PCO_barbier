@@ -11,7 +11,8 @@ int main(int argc, char *argv[])
 
     QMutex *mutexClient = new QMutex();
     QMutex *mutexBarbier = new QMutex();
-    QWaitCondition *salleAttente = new QWaitCondition();
+    QWaitCondition *salleCheveux = new QWaitCondition();
+    QWaitCondition *salleTatoo = new QWaitCondition();
     QWaitCondition *barbier = new QWaitCondition();
     QMutex *debug = new QMutex();
     QMutex *mutexSiege = new QMutex();
@@ -20,19 +21,19 @@ int main(int argc, char *argv[])
     int siegeTatoo = 0;
     int siegeCheveux = 0;
 
-    Barbier *b = new Barbier(mutexBarbier, barbier, salleAttente, debug, mutexSiege, &siegeUtilise, &siegeTatoo, &siegeCheveux);
+    Barbier *b = new Barbier(mutexBarbier, barbier, salleCheveux, salleTatoo, debug, mutexSiege, &siegeUtilise, &siegeTatoo, &siegeCheveux);
 
     b->start();
 
     ClientCheveux *c[20];
     for(int i = 0; i < 20; i++){
-         c[i]= new ClientCheveux(mutexClient, salleAttente, barbier, debug, mutexSiege, &siegeUtilise, &siegeCheveux);
+         c[i]= new ClientCheveux(mutexClient, salleCheveux, barbier, debug, mutexSiege, &siegeUtilise, &siegeCheveux);
          c[i]->start();
     }
 
     ClientTatoo *d[20];
     for(int i = 0; i < 20; i++){
-         d[i]= new ClientTatoo(mutexClient, salleAttente, barbier, debug, mutexSiege, &siegeUtilise, &siegeTatoo);
+         d[i]= new ClientTatoo(mutexClient, salleTatoo, barbier, debug, mutexSiege, &siegeUtilise, &siegeTatoo);
          d[i]->start();
     }
 

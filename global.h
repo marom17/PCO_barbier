@@ -7,7 +7,8 @@
 
 extern QMutex *mutexClient;
 extern QMutex *mutexBarbier;
-extern QWaitCondition *salleAttente;
+extern QWaitCondition *salleCheveux;
+extern QWaitCondition *salleTatoo;
 extern QWaitCondition *barbier;
 
 //TODO: Only for test. Ask NB_SIEGE to user!

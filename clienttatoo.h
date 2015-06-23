@@ -7,7 +7,7 @@ class ClientTatoo : public QThread
 {
 public:
     ClientTatoo(QMutex *mutexClient,
-                  QWaitCondition *salleAttente,
+                  QWaitCondition *salleTatoo,
                   QWaitCondition *barbier,
                   QMutex *debug,
                   QMutex *mutexSiege,
@@ -21,7 +21,7 @@ private:
     int *siegeUtilise;
     int *siegeTatoo;
     QMutex *mutexClient;
-    QWaitCondition *salleAttente;
+    QWaitCondition *salleTatoo;
     QWaitCondition *barbier;
     QMutex *mutexSiege;
     QMutex *debug;

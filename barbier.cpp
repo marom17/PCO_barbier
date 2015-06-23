@@ -2,7 +2,8 @@
 
 Barbier::~Barbier()
 {
-    delete this->salleAttente;
+    delete this->salleCheveux;
+    delete this->salleTatoo;
     delete this->mutexBarbier;
     delete this->mutexBarbier;
     delete this->siegeUtilise;
@@ -12,7 +13,8 @@ Barbier::~Barbier()
 
 Barbier::Barbier(QMutex *mutexBarbier,
                  QWaitCondition *barbier,
-                 QWaitCondition *salleAttente,
+                 QWaitCondition *salleCheveux,
+                 QWaitCondition *salleTatoo,
                  QMutex *debug,
                  QMutex *mutexSiege,
                  int *siegeUtilise,
@@ -21,7 +23,8 @@ Barbier::Barbier(QMutex *mutexBarbier,
 {
     this->mutexBarbier = mutexBarbier;
     this->barbier = barbier;
-    this->salleAttente = salleAttente;
+    this->salleCheveux = salleCheveux;
+    this->salleTatoo = salleTatoo;
     this->siegeUtilise = siegeUtilise;
     this->debug = debug;
     this->mutexSiege = mutexSiege;
@@ -56,7 +59,14 @@ void Barbier::run(){
             debug->lock();
             qDebug() << "Prochain Client! \n";
             debug->unlock();
-            salleAttente->wakeOne();
+            if(this->siegeTatoo>0){
+                salleTatoo->wakeOne();
+                (*siegeTatoo)--;
+            }
+            else{
+                salleCheveux->wakeOne();
+                (*siegeCheveux)--;
+            }
 
             (*siegeUtilise)--;
             mutexSiege->lock();

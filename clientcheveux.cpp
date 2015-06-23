@@ -1,14 +1,14 @@
 #include "clientcheveux.h"
 
 ClientCheveux::ClientCheveux(QMutex *mutexClient,
-                             QWaitCondition *salleAttente,
+                             QWaitCondition *salleCheveux,
                              QWaitCondition *barbier,
                              QMutex *debug,
                              QMutex *mutexSiege,
                              int *siegeUtilise,
                              int *siegeCheveux)
 {
-    this->salleAttente = salleAttente;
+    this->salleCheveux = salleCheveux;
     this->mutexClient = mutexClient;
     this->barbier = barbier;
     this->siegeUtilise = siegeUtilise;
@@ -20,7 +20,7 @@ ClientCheveux::ClientCheveux(QMutex *mutexClient,
 
 ClientCheveux::~ClientCheveux(){
     delete this->mutexClient;
-    delete this->salleAttente;
+    delete this->salleCheveux;
     delete this->barbier;
     delete this->siegeUtilise;
     delete this->siegeCheveux;
@@ -73,7 +73,7 @@ void ClientCheveux::run(){
         (*siegeCheveux)++;
         mutexSiege->unlock();
 
-        salleAttente->wait(mutexClient);
+        salleCheveux->wait(mutexClient);
 
         debug->lock();
         qDebug() << "Le barbier m'a réveillé, travail terminé! \n";

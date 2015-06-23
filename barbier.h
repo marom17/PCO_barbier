@@ -8,7 +8,8 @@ class Barbier : public QThread
 public:
     Barbier(QMutex *mutexBarbier,
             QWaitCondition *barbier,
-            QWaitCondition *salleAttente,
+            QWaitCondition *salleCheveux,
+            QWaitCondition *salleTatoo,
             QMutex *debug,
             QMutex *mutexSiege,
             int *siegeUtilise,
@@ -18,7 +19,8 @@ public:
     ~Barbier();
 private:
     QMutex *mutexBarbier;
-    QWaitCondition *salleAttente;
+    QWaitCondition *salleCheveux;
+    QWaitCondition *salleTatoo;
     QWaitCondition *barbier;
     QMutex *debug;
     QMutex *mutexSiege;

@@ -2,14 +2,14 @@
 #include "clienttatoo.h"
 
 ClientTatoo::ClientTatoo(QMutex *mutexClient,
-                             QWaitCondition *salleAttente,
+                             QWaitCondition *salleTatoo,
                              QWaitCondition *barbier,
                              QMutex *debug,
                              QMutex *mutexSiege,
                              int *siegeUtilise,
                              int *siegeTatoo)
 {
-    this->salleAttente = salleAttente;
+    this->salleTatoo = salleTatoo;
     this->mutexClient = mutexClient;
     this->barbier = barbier;
     this->siegeUtilise = siegeUtilise;
@@ -21,7 +21,7 @@ ClientTatoo::ClientTatoo(QMutex *mutexClient,
 
 ClientTatoo::~ClientTatoo(){
     delete this->mutexClient;
-    delete this->salleAttente;
+    delete this->salleTatoo;
     delete this->barbier;
     delete this->siegeUtilise;
     delete this->siegeTatoo;
@@ -74,7 +74,7 @@ void ClientTatoo::run(){
         (*siegeTatoo)++;
         mutexSiege->unlock();
 
-        salleAttente->wait(mutexClient);
+        salleTatoo->wait(mutexClient);
 
         debug->lock();
         qDebug() << "Le barbier m'a réveillé, tatoo terminé! \n";
