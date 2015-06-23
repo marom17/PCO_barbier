@@ -12,6 +12,7 @@ Barbier::Barbier(QMutex *mutexBarbier,
                  QWaitCondition *barbier,
                  QWaitCondition *salleAttente,
                  QMutex *debug,
+                 QMutex *mutexSiege,
                  int *siegeUtilise)
 {
     this->mutexBarbier = mutexBarbier;
@@ -19,6 +20,7 @@ Barbier::Barbier(QMutex *mutexBarbier,
     this->salleAttente = salleAttente;
     this->siegeUtilise = siegeUtilise;
     this->debug = debug;
+    this->mutexSiege = mutexSiege;
 }
 
 void Barbier::run(){
@@ -35,12 +37,25 @@ void Barbier::run(){
         qDebug() << "Je me fait réveiller par un client... \n";
         debug->unlock();
 
+        mutexSiege->lock();
         while(*siegeUtilise != 0){
+            mutexSiege->unlock();
+
+            debug->lock();
+            qDebug() << "Couper des cheveux, c'est ma passion!' \n";
+            debug->unlock();
+
+            sleep(1);
+
             debug->lock();
             qDebug() << "Prochain Client! \n";
             debug->unlock();
             salleAttente->wakeOne();
+
+            (*siegeUtilise)--;
+            mutexSiege->lock();
         }
+        mutexSiege->unlock();
 
         mutexBarbier->unlock();
     }

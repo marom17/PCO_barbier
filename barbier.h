@@ -10,6 +10,7 @@ public:
             QWaitCondition *barbier,
             QWaitCondition *salleAttente,
             QMutex *debug,
+            QMutex *mutexSiege,
             int *siegeUtilise);
     void run();
     ~Barbier();
@@ -18,6 +19,7 @@ private:
     QWaitCondition *salleAttente;
     QWaitCondition *barbier;
     QMutex *debug;
+    QMutex *mutexSiege;
     int *siegeUtilise;
 };
 

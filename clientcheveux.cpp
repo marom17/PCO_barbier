@@ -4,6 +4,7 @@ ClientCheveux::ClientCheveux(QMutex *mutexClient,
                              QWaitCondition *salleAttente,
                              QWaitCondition *barbier,
                              QMutex *debug,
+                             QMutex *mutexSiege,
                              int *siegeUtilise)
 {
     this->salleAttente = salleAttente;
@@ -11,6 +12,7 @@ ClientCheveux::ClientCheveux(QMutex *mutexClient,
     this->barbier = barbier;
     this->siegeUtilise = siegeUtilise;
     this->debug = debug;
+    this->mutexSiege = mutexSiege;
     attentePousseCheveux = 5 + (qrand() % 6);
 }
 
@@ -23,6 +25,7 @@ ClientCheveux::~ClientCheveux(){
 }
 
 void ClientCheveux::run(){
+    int cpt = 0;
     while(true){
         //Attend que ces cheveux pousse
         debug->lock();
@@ -31,22 +34,28 @@ void ClientCheveux::run(){
 
         sleep(attentePousseCheveux);
 
-        //Si la salle d'attente est pleine
         mutexClient->lock();
 
         debug->lock();
         qDebug() << "Je veux aller chez le barbier. \n";
         debug->unlock();
 
+        cpt = 0;
+
+        //Si la salle d'attente est pleine
+        mutexSiege->lock();
         while(*siegeUtilise >= NB_SIEGE){
             debug->lock();
-            qDebug() << "Plus de place... Je passerai plus tard \n";
+            qDebug() << cpt++ << "Essai. Plus de place... Je passerai plus tard \n";
             debug->unlock();
 
             mutexClient->unlock();
+            mutexSiege->unlock();
             sleep(attentePousseCheveux / 2);
             mutexClient->lock();
+            mutexSiege->lock();
         }
+        mutexSiege->unlock();
 
         debug->lock();
         qDebug() << "Je réveille le barbier et m'installe dans la salle d'attente \n";
@@ -56,14 +65,16 @@ void ClientCheveux::run(){
         barbier->wakeOne();
 
         //Entrée en salle d'attente
+        mutexSiege->lock();
         (*siegeUtilise)++;
+        mutexSiege->unlock();
+
         salleAttente->wait(mutexClient);
 
         debug->lock();
-        qDebug() << "Le barbier m'a réveillé, je peux me faire couper les tifs FDP LOL \n";
-        qDebug() << "Travail terminé!\n";
-        (*siegeUtilise)--;
+        qDebug() << "Le barbier m'a réveillé, travail terminé! \n";
         debug->unlock();
+
         mutexClient->unlock();
     }
 }
