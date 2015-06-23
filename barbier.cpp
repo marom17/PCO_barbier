@@ -54,7 +54,7 @@ void Barbier::run(){
             qDebug() << "Couper des cheveux, c'est ma passion!' \n";
             debug->unlock();
 
-            sleep(1);
+            sleep(1 + (qrand() % 2));
 
             debug->lock();
             qDebug() << "Prochain Client! \n";
