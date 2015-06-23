@@ -13,6 +13,8 @@ extern QWaitCondition *barbier;
 //TODO: Only for test. Ask NB_SIEGE to user!
 const int NB_SIEGE = 10;
 extern int siegeUtilise;
+extern int siegeTatoo;
+extern int siegeCheveux;
 
 #endif // GLOBAL
 

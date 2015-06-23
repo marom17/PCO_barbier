@@ -6,6 +6,8 @@ Barbier::~Barbier()
     delete this->mutexBarbier;
     delete this->mutexBarbier;
     delete this->siegeUtilise;
+    delete this->siegeCheveux;
+    delete this->siegeTatoo;
 }
 
 Barbier::Barbier(QMutex *mutexBarbier,
@@ -13,7 +15,9 @@ Barbier::Barbier(QMutex *mutexBarbier,
                  QWaitCondition *salleAttente,
                  QMutex *debug,
                  QMutex *mutexSiege,
-                 int *siegeUtilise)
+                 int *siegeUtilise,
+                 int *siegeCheveux,
+                 int *siegeTatoo)
 {
     this->mutexBarbier = mutexBarbier;
     this->barbier = barbier;
@@ -21,6 +25,8 @@ Barbier::Barbier(QMutex *mutexBarbier,
     this->siegeUtilise = siegeUtilise;
     this->debug = debug;
     this->mutexSiege = mutexSiege;
+    this->siegeCheveux = siegeCheveux;
+    this->siegeTatoo = siegeTatoo;
 }
 
 void Barbier::run(){

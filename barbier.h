@@ -11,7 +11,9 @@ public:
             QWaitCondition *salleAttente,
             QMutex *debug,
             QMutex *mutexSiege,
-            int *siegeUtilise);
+            int *siegeUtilise,
+            int *siegeCheveux,
+            int *siegeTatoo);
     void run();
     ~Barbier();
 private:
@@ -21,6 +23,8 @@ private:
     QMutex *debug;
     QMutex *mutexSiege;
     int *siegeUtilise;
+    int *siegeCheveux;
+    int *siegeTatoo;
 };
 
 #endif // BARBIER_H

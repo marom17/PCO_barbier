@@ -5,7 +5,8 @@ ClientCheveux::ClientCheveux(QMutex *mutexClient,
                              QWaitCondition *barbier,
                              QMutex *debug,
                              QMutex *mutexSiege,
-                             int *siegeUtilise)
+                             int *siegeUtilise,
+                             int *siegeCheveux)
 {
     this->salleAttente = salleAttente;
     this->mutexClient = mutexClient;
@@ -13,6 +14,7 @@ ClientCheveux::ClientCheveux(QMutex *mutexClient,
     this->siegeUtilise = siegeUtilise;
     this->debug = debug;
     this->mutexSiege = mutexSiege;
+    this->siegeCheveux = siegeCheveux;
     attentePousseCheveux = 5 + (qrand() % 6);
 }
 
@@ -21,6 +23,7 @@ ClientCheveux::~ClientCheveux(){
     delete this->salleAttente;
     delete this->barbier;
     delete this->siegeUtilise;
+    delete this->siegeCheveux;
 
 }
 
@@ -67,6 +70,7 @@ void ClientCheveux::run(){
         //Entrée en salle d'attente
         mutexSiege->lock();
         (*siegeUtilise)++;
+        (*siegeCheveux)++;
         mutexSiege->unlock();
 
         salleAttente->wait(mutexClient);

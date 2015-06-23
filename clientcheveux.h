@@ -11,13 +11,15 @@ public:
                   QWaitCondition *barbier,
                   QMutex *debug,
                   QMutex *mutexSiege,
-                  int *siegeUtilise);
+                  int *siegeUtilise,
+                  int *siegeCheveux);
     void run();
     ~ClientCheveux();
 
 private:
     int attentePousseCheveux;
     int *siegeUtilise;
+    int *siegeCheveux;
     QMutex *mutexClient;
     QWaitCondition *salleAttente;
     QWaitCondition *barbier;

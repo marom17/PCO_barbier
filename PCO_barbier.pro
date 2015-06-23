@@ -17,9 +17,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     barbier.cpp \
-    clientcheveux.cpp
+    clientcheveux.cpp \
+    clienttatoo.cpp
 
 HEADERS += \
     barbier.h \
     clientcheveux.h \
-    global.h
+    global.h \
+    clienttatoo.h
