@@ -1,3 +1,12 @@
+/*
+ * Authors: Stéphane Donnet; Romain Maillard
+ * Date:  3 juin
+ * Nom: barbier.cpp
+ * But: implémentation du barbier
+ *
+*/
+
+
 #include "barbier.h"
 
 Barbier::~Barbier()
@@ -37,13 +46,13 @@ void Barbier::run(){
         mutexBarbier->lock();
 
         debug->lock();
-        qDebug() << "J'attends qu'un client me réveille... \n";
+        qDebug() << "Barbier: J'attends qu'un client me reveille... \n";
         debug->unlock();
 
         barbier->wait(mutexBarbier);
 
         debug->lock();
-        qDebug() << "Je me fait réveiller par un client... \n";
+        qDebug() << "Barbier: Je me fait reveiller par un client... \n";
         debug->unlock();
 
         mutexSiege->lock();
@@ -51,14 +60,16 @@ void Barbier::run(){
             mutexSiege->unlock();
 
             debug->lock();
-            qDebug() << "Couper des cheveux, c'est ma passion!' \n";
+            qDebug() << "Barbier: Couper des cheveux, c'est ma passion!' \n";
             debug->unlock();
 
             sleep(1 + (qrand() % 2));
 
             debug->lock();
-            qDebug() << "Prochain Client! \n";
+            qDebug() << "Barbier: Prochain Client! \n";
             debug->unlock();
+
+            //Vérifie si il y a des gens voulants des tatoo pour le faire passer en premier
             if(this->siegeTatoo>0){
                 salleTatoo->wakeOne();
                 (*siegeTatoo)--;

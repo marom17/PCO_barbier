@@ -1,3 +1,11 @@
+/*
+ * Authors: Stéphane Donnet; Romain Maillard
+ * Date:  3 juin
+ * Nom: global.h
+ * But: définition de quelques variables global
+ *
+*/
+
 #ifndef GLOBAL
 #define GLOBAL
 #include <QMutex>

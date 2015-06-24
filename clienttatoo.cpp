@@ -1,3 +1,10 @@
+/*
+ * Authors: Stéphane Donnet; Romain Maillard
+ * Date:  23 juin
+ * Nom: clienttatoo.cpp
+ * But: implémentation des clients voulant des tatoos
+ *
+*/
 
 #include "clienttatoo.h"
 
@@ -31,9 +38,9 @@ ClientTatoo::~ClientTatoo(){
 void ClientTatoo::run(){
     int cpt = 0;
     while(true){
-        //Attend que ces cheveux pousse
+        //Attend l'envie d'un nouveau tatoo
         debug->lock();
-        qDebug() << "J'attends d'avoir envie d'un nouveau Tatoo \n";
+        qDebug() << "Tatoo: J'attends d'avoir envie d'un nouveau Tatoo \n";
         debug->unlock();
 
         sleep(attenteTatoo);
@@ -41,7 +48,7 @@ void ClientTatoo::run(){
         mutexClient->lock();
 
         debug->lock();
-        qDebug() << "Je veux aller chez le barbier pour me faire tatouer. \n";
+        qDebug() << "Tatoo: Je veux aller chez le barbier pour me faire tatouer. \n";
         debug->unlock();
 
         cpt = 0;
@@ -50,7 +57,7 @@ void ClientTatoo::run(){
         mutexSiege->lock();
         while(*siegeUtilise >= NB_SIEGE){
             debug->lock();
-            qDebug() << cpt++ << "Essai. Plus de place... Je passerai plus tard \n";
+            qDebug() << cpt++ << "Tatoo: Essai. Plus de place... Je passerai plus tard \n";
             debug->unlock();
 
             mutexClient->unlock();
@@ -62,7 +69,7 @@ void ClientTatoo::run(){
         mutexSiege->unlock();
 
         debug->lock();
-        qDebug() << "Je réveille le barbier et m'installe dans la salle d'attente \n";
+        qDebug() << "Tatoo: Je reveille le barbier et m'installe dans la salle d'attente \n";
         debug->unlock();
 
         //Réveille le barbier si besoin
@@ -77,7 +84,7 @@ void ClientTatoo::run(){
         salleTatoo->wait(mutexClient);
 
         debug->lock();
-        qDebug() << "Le barbier m'a réveillé, tatoo terminé! \n";
+        qDebug() << "Tatoo: Le barbier m'a réveille, tatoo termine! \n";
         debug->unlock();
 
         mutexClient->unlock();

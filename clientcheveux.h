@@ -1,3 +1,11 @@
+/*
+ * Authors: Stéphane Donnet; Romain Maillard
+ * Date:  3 juin
+ * Nom: clientcheveux.h
+ * But: définition des clients voulant se faire couper les cheveux
+ *
+*/
+
 #ifndef CLIENTCHEVEUX_H
 #define CLIENTCHEVEUX_H
 #include <QThread>

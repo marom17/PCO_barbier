@@ -1,3 +1,11 @@
+/*
+ * Authors: Stéphane Donnet; Romain Maillard
+ * Date:  3 juin
+ * Nom: clienttatoo.h
+ * But: définition des clients voulant des tatoos
+ *
+*/
+
 #ifndef CLIENTTATOO_H
 #define CLIENTTATOO_H
 #include <QThread>

@@ -1,3 +1,12 @@
+/*
+ * Authors: Stéphane Donnet; Romain Maillard
+ * Date:  3 juin
+ * Nom: clientcheveux.cpp
+ * But: implémentation des clients voulant se faire couper les cheveux
+ *
+*/
+
+
 #include "clientcheveux.h"
 
 ClientCheveux::ClientCheveux(QMutex *mutexClient,
@@ -32,7 +41,7 @@ void ClientCheveux::run(){
     while(true){
         //Attend que ces cheveux pousse
         debug->lock();
-        qDebug() << "J'attends que mes cheveux poussent \n";
+        qDebug() << "Cheveux: J'attends que mes cheveux poussent \n";
         debug->unlock();
 
         sleep(attentePousseCheveux);
@@ -40,7 +49,7 @@ void ClientCheveux::run(){
         mutexClient->lock();
 
         debug->lock();
-        qDebug() << "Je veux aller chez le barbier. \n";
+        qDebug() << "Cheveux: Je veux aller chez le barbier. \n";
         debug->unlock();
 
         cpt = 0;
@@ -49,7 +58,7 @@ void ClientCheveux::run(){
         mutexSiege->lock();
         while(*siegeUtilise >= NB_SIEGE){
             debug->lock();
-            qDebug() << cpt++ << "Essai. Plus de place... Je passerai plus tard \n";
+            qDebug() << cpt++ << "Cheveux: Essai. Plus de place... Je passerai plus tard \n";
             debug->unlock();
 
             mutexClient->unlock();
@@ -61,7 +70,7 @@ void ClientCheveux::run(){
         mutexSiege->unlock();
 
         debug->lock();
-        qDebug() << "Je réveille le barbier et m'installe dans la salle d'attente \n";
+        qDebug() << "Cheveux: Je reveille le barbier et m'installe dans la salle d'attente \n";
         debug->unlock();
 
         //Réveille le barbier si besoin
@@ -76,7 +85,7 @@ void ClientCheveux::run(){
         salleCheveux->wait(mutexClient);
 
         debug->lock();
-        qDebug() << "Le barbier m'a réveillé, travail terminé! \n";
+        qDebug() << "Cheveux: Le barbier m'a reveille, travail termine! \n";
         debug->unlock();
 
         mutexClient->unlock();

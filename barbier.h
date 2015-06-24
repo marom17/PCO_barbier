@@ -1,3 +1,11 @@
+/*
+ * Authors: Stéphane Donnet; Romain Maillard
+ * Date:  3 juin
+ * Nom: barbier.h
+ * But: définition du barbier
+ *
+*/
+
 #ifndef BARBIER_H
 #define BARBIER_H
 #include <QThread>

@@ -1,8 +1,20 @@
+/*
+ * Authors: Stéphane Donnet; Romain Maillard
+ * Date:  3 juin
+ * Nom: main.cpp
+ * But: permet d'initialiser les clients et le barbier et les variables
+ *
+*/
+
 #include <QCoreApplication>
 #include <global.h>
 #include <barbier.h>
 #include <clientcheveux.h>
 #include <clienttatoo.h>
+
+//Permet de chosir le nombre de client
+#define NBCHEVEUX 20
+#define NBTATOO 5
 
 int main(int argc, char *argv[])
 {
@@ -25,14 +37,15 @@ int main(int argc, char *argv[])
 
     b->start();
 
-    ClientCheveux *c[20];
-    for(int i = 0; i < 20; i++){
+
+    ClientCheveux *c[NBCHEVEUX];
+    for(int i = 0; i < NBCHEVEUX; i++){
          c[i]= new ClientCheveux(mutexClient, salleCheveux, barbier, debug, mutexSiege, &siegeUtilise, &siegeCheveux);
          c[i]->start();
     }
 
-    ClientTatoo *d[20];
-    for(int i = 0; i < 20; i++){
+    ClientTatoo *d[NBTATOO];
+    for(int i = 0; i < NBTATOO; i++){
          d[i]= new ClientTatoo(mutexClient, salleTatoo, barbier, debug, mutexSiege, &siegeUtilise, &siegeTatoo);
          d[i]->start();
     }
