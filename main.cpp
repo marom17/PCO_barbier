@@ -11,10 +11,9 @@
 #include <barbier.h>
 #include <clientcheveux.h>
 #include <clienttatoo.h>
+#include <QVector>
 
-//Permet de chosir le nombre de client
-#define NBCHEVEUX 20
-#define NBTATOO 5
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -32,22 +31,35 @@ int main(int argc, char *argv[])
     int siegeUtilise = 0;
     int siegeTatoo = 0;
     int siegeCheveux = 0;
+    int nbCheveux = 0;
+    int nbTatoo = 0;
+
+    cout << "Bienvenue dans le sallon de coiffure et tatouage PCO"<< endl;
+    do{
+        cout << "Combien voulez-vous de client voulant se faire couper les cheveux ?";
+        cin >> nbCheveux;
+    }while(nbCheveux<0);
+    do{
+        cout << "Combien voulez-vous de client voulant se faire tatouer ?";
+        cin >> nbTatoo;
+    }while(nbTatoo<0);
 
     Barbier *b = new Barbier(mutexBarbier, barbier, salleCheveux, salleTatoo, debug, mutexSiege, &siegeUtilise, &siegeTatoo, &siegeCheveux);
 
     b->start();
 
 
-    ClientCheveux *c[NBCHEVEUX];
-    for(int i = 0; i < NBCHEVEUX; i++){
-         c[i]= new ClientCheveux(mutexClient, salleCheveux, barbier, debug, mutexSiege, &siegeUtilise, &siegeCheveux);
-         c[i]->start();
+
+    QVector<ClientCheveux*> c;
+    for(int i = 0; i < nbCheveux; i++){
+        c.push_front(new ClientCheveux(mutexClient, salleCheveux, barbier, debug, mutexSiege, &siegeUtilise, &siegeCheveux));
+        c.front()->start();
     }
 
-    ClientTatoo *d[NBTATOO];
-    for(int i = 0; i < NBTATOO; i++){
-         d[i]= new ClientTatoo(mutexClient, salleTatoo, barbier, debug, mutexSiege, &siegeUtilise, &siegeTatoo);
-         d[i]->start();
+    QVector<ClientTatoo*> d;
+    for(int i = 0; i < nbTatoo; i++){
+        d.push_front(new ClientTatoo(mutexClient, salleTatoo, barbier, debug, mutexSiege, &siegeUtilise, &siegeTatoo));
+        d.front()->start();
     }
 
 
